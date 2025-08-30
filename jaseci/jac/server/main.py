@@ -47,8 +47,6 @@ JAC_BIN = os.getenv("JAC_BIN") or shutil.which("jac") or "jac"
 BASE_ENV = os.environ.copy()
 if sys.platform.startswith("linux"):
     BASE_ENV.setdefault("SDL_VIDEODRIVER", "x11")
-# elif sys.platform == "win32":
-#     BASE_ENV.setdefault("SDL_VIDEODRIVER", "windib")
 elif sys.platform == "win32":
     BASE_ENV.pop("SDL_VIDEODRIVER", None)   # <- do NOT force windib
     BASE_ENV.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
@@ -71,10 +69,6 @@ SYSTEM_PROMPT = (
 def safe_task_name(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9_\-]", "_", name or "").strip("_") or "task"
 
-# def task_dir_for(task: str) -> pathlib.Path:
-#     d = EXAMPLES_DIR / safe_task_name(task)
-#     (d / "logs").mkdir(parents=True, exist_ok=True)
-#     return d
 
 def task_dir_for(task: str) -> pathlib.Path:
     d = EXAMPLES_DIR / safe_task_name(task)
@@ -95,27 +89,6 @@ def materialize_task_file(task: str, src: pathlib.Path) -> pathlib.Path:
 # -----------------
 # Utils
 # -----------------
-# def append_llm_io(task_dir: pathlib.Path, system: str, inp: str, out: Any):
-#     """
-#     Prefer writing to <task_dir>/llm_io_log.jsonl.
-#     Fall back to <task_dir>/logs/llm_io_log.jsonl if that structure already exists.
-#     Creates the needed directories/files if missing.
-#     """
-#     flat_path = task_dir / "llm_io_log.jsonl"
-#     logs_dir = task_dir / "logs"
-#     logs_path = logs_dir / "llm_io_log.jsonl"
-
-#     # If a flat file already exists (or no logs dir), write flat; otherwise use logs/
-#     if flat_path.exists() or not logs_dir.exists():
-#         flat_path.parent.mkdir(parents=True, exist_ok=True)
-#         log_path = flat_path
-#     else:
-#         logs_dir.mkdir(parents=True, exist_ok=True)
-#         log_path = logs_path
-
-#     entry = {"system": system, "input": inp, "output": out}
-#     with log_path.open("a", encoding="utf-8") as f:
-#         f.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
 
 def append_llm_io(task_dir: pathlib.Path, system: str, inp: str, out: Any):
     """Always write flat log file beside the task file."""
@@ -214,33 +187,6 @@ class JacSession:
                 # stdin invalid/closed; end writer
                 break
     # <<<
-
-    # async def pump(self, websocket: Optional[WebSocket] = None):
-    #     while not self.stop_flag.is_set():
-    #         line = await asyncio.to_thread(self.stdout_q.get)
-    #         if line == "__EOF__":
-    #             break
-    #         stripped = line.rstrip("\n")
-
-    #         # echo to frontend
-    #         if websocket:
-    #             await websocket.send_text(json.dumps({"type":"stdout","data":stripped}))
-
-    #         # record IO pairs: one output for one prior input
-    #         if self.pending_inp:
-    #             last_inp = self.pending_inp.popleft()
-    #             try:
-    #                 parsed = json.loads(stripped)
-    #             except Exception:
-    #                 parsed = stripped
-    #             append_llm_io(self.task_dir, SYSTEM_PROMPT, last_inp, parsed)
-    #         else:
-    #             # NEW: also log output lines even if there was no input
-    #             try:
-    #                 parsed = json.loads(stripped)
-    #             except Exception:
-    #                 parsed = stripped
-    #             append_llm_io(self.task_dir, SYSTEM_PROMPT, "", parsed)
 
 
     async def pump(self, websocket: Optional[WebSocket] = None):
@@ -358,11 +304,6 @@ async def api_upload(file: UploadFile = File(...)):
     return {"ok": True, "task_name": task, "jac_path": str(dest_path)}
 
 
-# def find_rpg_main()->pathlib.Path:
-#     root = EXAMPLES_DIR / "rpg_game"
-#     cands = list(root.glob("**/main.jac"))
-#     if not cands: raise FileNotFoundError("No main.jac under examples/rpg_game")
-#     return cands[0]
 def find_rpg_main() -> pathlib.Path:
     # search under common roots
     roots = [
@@ -380,26 +321,6 @@ def find_rpg_main() -> pathlib.Path:
     raise FileNotFoundError("No main.jac found under rpg_game")
 
 
-
-# @app.post("/api/rpg/run")
-# async def api_rpg_run():
-#     try:
-#         rpg = find_rpg_main()
-#     except FileNotFoundError as e:
-#         raise HTTPException(404, str(e))
-
-#     old = SESSIONS.pop("rpg_game", None)
-#     if old:
-#         old.stop()
-
-#     # >>> set log dir to the directory of main.jac
-#     sess = JacSession("rpg_game", rpg, run_cwd=rpg.parent)
-#     sess.task_dir = rpg.parent   # override: log file will be created here
-#     # <<<
-
-#     SESSIONS["rpg_game"] = sess
-#     asyncio.create_task(sess.pump())
-#     return {"ok": True, "task": "rpg_game", "jac_path": str(rpg)}
 @app.post("/api/rpg/run")
 async def api_rpg_run():
     try:
