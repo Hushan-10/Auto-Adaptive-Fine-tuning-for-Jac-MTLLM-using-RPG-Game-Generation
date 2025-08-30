@@ -1,0 +1,259 @@
+/* ===== Console background (image + subtle vignette on TOP layer) ===== */
+.console-page .bg-gradient {
+  background:
+    url("../assets/console-bg.png") center / cover fixed no-repeat, /* ← image FIRST */
+    radial-gradient(1200px 800px at 50% 50%, rgba(10, 12, 24, 0.22), rgba(10, 12, 24, 0.55)); /* light overlay so full color shows */
+  position: relative;
+}
+
+/* optional twinkling stars */
+.console-page .bg-gradient::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.35;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(147,197,253,.35), transparent),
+    radial-gradient(1.5px 1.5px at 70% 60%, rgba(167,139,250,.35), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(147,197,253,.3), transparent);
+  background-size: 240px 240px; background-repeat: repeat;
+  animation: floatStars 22s linear infinite;
+}
+@keyframes floatStars { to { transform: translateY(-220px) } }
+
+/* Center the main card */
+.console-page .container{
+  max-width:1200px; width:100%; padding:2rem;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.console-card {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.8s ease-out;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.console-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+.status-dot.connected {
+  background: #3fa2f3;
+  box-shadow: 0 0 10px rgba(100, 128, 231, 0.5);
+}
+
+.status-dot.disconnected {
+  background: #ff4444;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.console-h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0022ff 0%, #9049e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.filter-toggle input[type="checkbox"] {
+  accent-color: #a87af0;
+}
+
+.terminal-wrapper {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid rgba(80, 125, 232, 0.3);
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.terminal-header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(87, 139, 223, 0.2);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot.red {
+  background: #ff5f56;
+}
+.dot.yellow {
+  background: #ffbd2e;
+}
+.dot.green {
+  background: #27ca3f;
+}
+
+.terminal-title {
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  color: rgba(59, 85, 199, 0.8);
+}
+
+.terminal {
+  background: transparent;
+  color: #d6dce7;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding: 1.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.3);
+  border-radius: 4px;
+}
+
+.user-input {
+  color: #00ccff;
+  font-weight: bold;
+}
+
+.schema-output {
+  color: #e591fc;
+  background: rgba(255, 170, 0, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin: 0.2rem 0;
+}
+
+.normal-output {
+  color: #ffffff;
+}
+
+.input-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.terminal-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(84, 112, 225, 0.3);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  color: #ddeadd;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.terminal-input:focus {
+  outline: none;
+  border-color: #dde7dd;
+  box-shadow: 0 0 10px rgba(0, 60, 255, 0.89);
+}
+
+.terminal-input::placeholder {
+  color: rgba(233, 239, 233, 0.948);
+}
+
+.btn-send {
+  background: linear-gradient(135deg, #5ea6dc 0%, #894ee2 100%);
+  color: #000;
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.control-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .console-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .control-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .control-row .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
