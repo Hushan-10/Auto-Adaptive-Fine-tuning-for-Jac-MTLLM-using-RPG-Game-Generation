@@ -1,0 +1,155 @@
+
+
+.upload-card {
+  max-width: 900px;
+  animation: fadeIn 0.8s ease-out;
+  background-image: url("/images/upload-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+/* Upload page background */
+.page .bg-gradient{
+  background:
+    url("../assets/upload-bg.png") center / cover fixed no-repeat,     /* ← image FIRST */
+    linear-gradient(135deg, rgba(8,10,20,.18), rgba(8,10,26,.42));
+  position: relative;
+}
+
+/* Your existing .upload-card with glass + glow is fine.
+   If you used an image on .upload-card too, you can remove that now,
+   so the big page image shows through consistently. */
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.drop-zone {
+  border: 2px dashed rgba(102, 126, 234, 0.4);
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  background: rgba(102, 126, 234, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.drop-zone::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.drop-zone:hover::before,
+.drop-zone.dragging::before {
+  opacity: 0.3;
+  animation: border-glow 2s linear infinite;
+}
+
+@keyframes border-glow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+
+.drop-zone.has-file {
+  border-color: #4ecdc4;
+  background: rgba(78, 205, 196, 0.15);
+  box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+}
+
+.drop-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.drop-text {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.drop-text strong {
+  color: white;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .drop-zone {
+    padding: 3rem 1rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-row .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
