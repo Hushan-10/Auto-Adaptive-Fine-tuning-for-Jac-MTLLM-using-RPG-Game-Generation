@@ -4,7 +4,7 @@ We implemented two versions of the map viewing tool to ensure both visualization
 
 ---
 
-### **Phase 1: `map_view_v1.py`**  
+### **Version 1: `map_view_v1.py`**  
 
 - **Purpose:**  
   - View maps from a `.jsonl` file.  
@@ -24,7 +24,7 @@ We implemented two versions of the map viewing tool to ensure both visualization
 
 ---
 
-### **Phase 2: `map_view_v2.py`**  
+### **version 2: `map_view_v2.py`**  
 
 - **Purpose (Upgraded):**  
   - View maps from a `.jsonl` file.  
