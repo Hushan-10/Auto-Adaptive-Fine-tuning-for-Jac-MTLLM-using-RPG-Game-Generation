@@ -3,6 +3,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../styles/upload.css"
+import Footer from "../components/Footer.jsx"
+import "../styles/footer.css"
+import { useEffect } from "react"
 
 export default function Upload() {
   const [file, setFile] = useState(null)
@@ -22,6 +25,7 @@ export default function Upload() {
     const u = new URLSearchParams({ jac_path: j.jac_path, task_name: j.task_name })
     nav(`/console?${u.toString()}`)
   }
+  useEffect(()=>{ document.body.dataset.page = "upload"; },[]);
 
   function handleDragOver(e) {
     e.preventDefault()
@@ -47,6 +51,15 @@ export default function Upload() {
       <div className="bg-full">
         <div className="bg-gradient"></div>
       </div>
+      <header className="topnav glass">
+        <div className="brand"><span className="logo">⚡</span> JARVIS</div>
+        <nav>
+          <a className="nav-link" href="/">Dashboard</a>
+          <a className="nav-link" href="/about">About</a>
+          <a className="nav-link" href="/console">Console</a>
+          <a className="nav-link" href="/app">Home</a>
+        </nav>
+      </header>
       <div className="container">
         <div className="card upload-card">
           <div className="card-header">
@@ -95,6 +108,7 @@ export default function Upload() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

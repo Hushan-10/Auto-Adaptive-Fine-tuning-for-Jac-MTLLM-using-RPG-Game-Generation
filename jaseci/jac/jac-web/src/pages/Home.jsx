@@ -2,7 +2,9 @@
 import { useState } from "react"      
 import { Link } from "react-router-dom"
 import "../styles/home.css"
-
+import Footer from "../components/Footer.jsx"
+import "../styles/footer.css"
+import { useEffect } from "react"
 
 
 
@@ -19,7 +21,7 @@ async function onPlayRPG() {
 
 export default function Home() {
   const [exited, setExited] = useState(false)
-
+  useEffect(()=>{ document.body.dataset.page = "landing"; },[]);
   function exitApp() {
     fetch("/api/shutdown", { method: "POST" }).catch(() => {})
     window.open("", "_self"); window.close()
@@ -30,6 +32,15 @@ export default function Home() {
       <div className="bg-full">
         <div className="bg-gradient"></div>
       </div>
+      <header className="topnav glass">
+        <div className="brand"><span className="logo">⚡</span> JARVIS</div>
+        <nav>
+          <a className="nav-link" href="/">Dashboard</a>
+          <a className="nav-link" href="/about">About</a>
+          <a className="nav-link" href="/console">Console</a>
+          <a className="nav-link" href="/upload">Upload</a>
+        </nav>
+      </header>
       <div className="container">
         {!exited && (
         <div className="card">
@@ -65,6 +76,7 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   )
 }

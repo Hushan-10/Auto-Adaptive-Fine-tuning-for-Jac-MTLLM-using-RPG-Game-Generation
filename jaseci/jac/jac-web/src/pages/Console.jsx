@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import "../styles/console.css"
+import "../styles/footer.css"
+import Footer from "../components/Footer.jsx"
 
 
 
@@ -40,6 +42,8 @@ export default function Console() {
   const wsRef = useRef(null)
   const terminalRef = useRef(null)
 
+
+  useEffect(()=>{ document.body.dataset.page = "landing"; },[]);
   useEffect(() => {
     let stopped = false
 
@@ -106,7 +110,15 @@ export default function Console() {
       <div className="bg-full">
         <div className="bg-gradient"></div>
       </div>
-
+      <header className="topnav glass">
+        <div className="brand"><span className="logo">⚡</span> JARVIS</div>
+        <nav>
+          <a className="nav-link" href="/">Dashboard</a>
+          <a className="nav-link" href="/about">About</a>
+          <a className="nav-link" href="/app">Home</a>
+          <a className="nav-link" href="/upload">Upload</a>
+        </nav>
+      </header>
       <div className="container">
         {!exited && (
         <div className="console-card">
@@ -187,6 +199,7 @@ export default function Console() {
           </div>
         )}
     </div>
+    <Footer/>
   </div>
   )
 }
