@@ -72,7 +72,8 @@
 }
 
 
-## 🧰 Data 
+## 🧰 Data
 
-- **Dataset: 20,000 rows; JSON schema includes `level_index`, `difficulty`, and optional **complexity tags**.  
+- **Dataset:** 10,000 rows; JSON schema with `level_index`, `difficulty`, and optional **complexity tags**.  
 
+---
