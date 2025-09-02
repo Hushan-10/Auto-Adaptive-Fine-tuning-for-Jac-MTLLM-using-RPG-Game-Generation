@@ -71,9 +71,3 @@
   "player_pos": {"x": 1, "y": 1}
 }
 
----
-## 🧰 Data
-
-- **Dataset:** 20,000 rows; JSON schema with `level_index`, `difficulty`, and optional **complexity tags**.  
-
----
