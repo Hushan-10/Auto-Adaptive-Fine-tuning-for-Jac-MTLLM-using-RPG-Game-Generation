@@ -72,8 +72,4 @@
   "player_pos": {"x": 1, "y": 1}
 }
 
-## 🧰 Data & Training Notes
-
-- **Dataset:** 60,000 rows; JSON schema includes `level_index`, `difficulty`, and **complexity tags**.  
-- **Base model:** **TinyLLaMA‑1.1B**; PEFT/LoRA finetune.  
 
