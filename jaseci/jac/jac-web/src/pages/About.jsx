@@ -72,7 +72,7 @@ export default function About(){
 
         <div className="card media">
           {/* Optional local clip; replace src with your asset path */}
-          <video className="clip" controls src="/videos/overview.mp4" />
+          <video className="clip" controls src="/media/overview.mp4" />
         </div>
       </section>
 

@@ -56,8 +56,7 @@ export default function DynamicShowcaseFinal({
             </h1>
 
             <p className="lead">
-              Upload, run, and monitor JAC with zero setup. Powerful console UX,
-              auto-adaptive validation, and a themeable, developer-first surface.
+              Distilled Intelligence, Instant Execution-One Pipeline, Every Task. Cloud-Grade Quality Meets Edge-Fast Reflexes-Auto-Distilled, Fine-Tuned Local Models For Any Task.
             </p>
 
             <ul className="bullets">
