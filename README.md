@@ -32,12 +32,12 @@ Activate the conda environment :
 conda activate myenv
   ```
 
-## 2. Install dependencies
+## 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## 3. Run Required Terminals
+## 4. Run Required Terminals
 
 ### Run the frontend
 
@@ -49,6 +49,7 @@ D:\jaseci\jac\jac-web>
 Start the development server:
 
 ```bash
+conda activate myenv
 npm run dev
 ```
 > **Note:** All details are shown in this YouTube video: [Watch the tutorial](https://youtu.be/YOUR_VIDEO_ID)
@@ -63,6 +64,7 @@ D:\jaseci\jac\server>
 Start the development server:
 
 ```bash
+ conda activate myenv
  uvicorn main:app --reload --port 8000
 ```
 ### Start the local server (hosts our fine-tuned RPG model)
@@ -74,10 +76,11 @@ D:\jaseci>
 Start the development server:
 
 ```bash
+ conda activate myenv
  uvicorn Server:app --reload --port 9000
 ```
 
-## Start the merge server (automatically hosts models after fine-tuning completes)
+### Start the merge server (automatically hosts models after fine-tuning completes)
 
 Open a terminal in the following directory:
 D:\jaseci\jac-mtllm\mtllm>
@@ -87,9 +90,10 @@ D:\jaseci\jac-mtllm\mtllm>
 Start the development server:
 
 ```bash
+ conda activate myenv
  uvicorn merge_server:app --host 127.0.0.1 --port 8010
 ```
-## Run the background finetuning file
+### Run the background finetuning file
 
 Open a terminal in the following directory:
  D:\jaseci>
@@ -99,6 +103,10 @@ Open a terminal in the following directory:
 Start the development server:
 
 ```bash
+  conda activate myenv
   python Incremental_FineTuning.py 
 ```
 
+## 5.Change the hardcoded paths
+plugin file
+line 472 : 
