@@ -107,6 +107,55 @@ Start the development server:
   python Incremental_FineTuning.py 
 ```
 
+## Update local paths
+
+Update the paths below to match your PC’s directories.
+
+### Plugin file
+- **Line 472**
+```python
+_TARGET_RPG_FILE = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_6\main.jac"
+```
+- **Line 68**
+```python
+_DEFAULT_SWITCH_WHITELIST = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_6\main.jac"
+```  
+### Server file
+- **Line 14**
+```python
+MODEL_PATH = r"D:\Jac\TinyLlama-1.1B-Chat-v1.0"
+``` 
+This is the path to the fine-tuned RPG model. After you download a model, update this path to your local directory.
+You can choose any model from this list (Model 7 is recommended):
+
+
+
+
 ## 5.Change the hardcoded paths
+please update all directories with your pc directories
 plugin file
-line 472 : 
+line 472 : _TARGET_RPG_FILE = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_6\main.jac"
+line 68 :  _DEFAULT_SWITCH_WHITELIST = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_6\main.jac"
+
+server file
+line 14 : MODEL_PATH = r"D:\Jac\TinyLlama-1.1B-Chat-v1.0"
+this is the path of fine tuned RPG model.after you download please update with this directory.you can choose whatever model by refering this link.most recommended one is model 7.
+link for models - https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main/LoRA-Trained
+
+merger server file
+
+line 17 :MODEL_DIR = Path(os.environ.get("MODEL_DIR", r"D:\Jaseci\merged_models\jac_impl_6__123cd215\merged")).resolve()
+
+Incremental_FineTuning file 
+
+line 57 : INITIAL_BASE_MODEL = os.environ.get("INITIAL_BASE_MODEL", r"D:\Jac\TinyLlama-1.1B-Chat-v1.0")
+this is the path of fine tuned Base.after you download please update with this directory.
+link for models - https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main/Base-Model/TinyLlama-1.1B-Chat-v1.0
+
+line 59  : WORK_ROOT   = Path(os.environ.get("WORK_ROOT",   r"D:\Jaseci\finetune_runs")).resolve()
+
+line 138 : _RPG_RUN_WHITELIST = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_6\main.jac"
+
+in here excluding Initial base model and fine tuned RPG model(in server file) paths,
+for other paths, 
+> **Note:** The drive letter (`D:`) may be different on your machine; the rest of the path is the same.
