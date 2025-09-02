@@ -14,5 +14,5 @@
 3. Update the path below if you use a different name.
 
 ```markdown
-![List index out of range](./images/Screenshot 2025-08-23 165008.png)
+![List index out of range](./images/"Screenshot 2025-08-23 165008.png")
 
