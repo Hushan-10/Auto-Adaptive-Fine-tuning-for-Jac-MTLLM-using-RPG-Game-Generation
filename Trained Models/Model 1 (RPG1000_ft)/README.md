@@ -1,4 +1,4 @@
-# RPG Level Generator — Fine‑Tuned Model (1000‑row dataset)
+# RPG Level Generator — LoRA Fine‑Tuned Model (1000‑row dataset)
 
 **Model type:** autoregressive text model fine‑tuned to emit compact JSON/ASCII tile maps for early‑game RPG levels.  
 **Task:** procedural level generation (Level 1–3 focus).
