@@ -16,3 +16,4 @@
 ```markdown
 ![List index out of range](./images/"Screenshot 2025-08-23 165008.png")
 
+<img width="1211" height="354" alt="Screenshot 2025-08-23 165008" src="https://github.com/user-attachments/assets/42818a24-192c-41d0-a9cb-e12167ee75f3" />
