@@ -1,3 +1,4 @@
+
 # List Index Out of Range — Fix Report
 
 > **TL;DR**  
@@ -13,7 +14,4 @@
 2. Upload your screenshot into that folder. For example: `list_index_out_of_range.png`.
 3. Update the path below if you use a different name.
 
-```markdown
-![List index out of range](./images/"Screenshot 2025-08-23 165008.png")
-
-<img width="1211" height="354" alt="Screenshot 2025-08-23 165008" src="https://github.com/user-attachments/assets/42818a24-192c-41d0-a9cb-e12167ee75f3" />
+<img width="1211" height="354" alt="Screenshot 2025-08-23 165008" src="https://github.com/user-attachments/assets/71345979-e3d6-4e83-982a-f843a79afb17" />
