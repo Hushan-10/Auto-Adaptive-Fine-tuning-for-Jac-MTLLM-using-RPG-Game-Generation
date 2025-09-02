@@ -1,5 +1,5 @@
-# RPG Level Generator — LoRA 
-Fine‑Tuned Model (60,000‑row dataset)
+# RPG Level Generator — LoRA Fine‑Tuned Model (60,000‑row dataset)
+
 
 **Base model:** TinyLLaMA‑1.1B (causal LM)  
 **Goal:** Generate high‑quality, progressively challenging RPG maps as compact JSON/ASCII grids.  
