@@ -23,4 +23,6 @@ It checks structure, types, and formatting, and can also detect if the JSON is s
 - [3] kind=INVALID strict=false
   -reason: Map keys mismatch; got ['walls','level']
 
+<img width="1496" height="314" alt="Screenshot 2025-09-03 023222" src="https://github.com/user-attachments/assets/30e9085f-dd74-4bf3-b0df-bca151899e91" />
+
 
