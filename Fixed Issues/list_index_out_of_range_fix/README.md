@@ -41,18 +41,9 @@ if 0 <= x < map.level.width and 0 <= y < map.level.height {
 
 The same pattern is applied to **small obstacles**, **enemies**, and the **player**. Border padding remains as a final step so the core grid cannot be corrupted.
 
----
-
-## 📦 Diff (Before → After)
-
-```diff
--                    map_tiles[y][x] = 'B';
-+                    if 0 <= x < map.level.width and 0 <= y < map.level.height {
-+                        map_tiles[y][x] = 'B';
-+                    }
-```
-
-Similar bounds checks were added for obstacles, enemies, and player placement.
+--- 
+## fixed image 
+<img width="1919" height="854" alt="How we fixed list index out of range error" src="https://github.com/user-attachments/assets/dd13cc67-c333-42e3-b889-4a537faa6fea" />
 
 ---
 
