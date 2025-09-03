@@ -3,8 +3,9 @@ This Includes a python script which can generate a moderate quality maps and it 
 ## Level-2 Map Generators  
 
 Lightweight **mdoderare-level scripts** for generating **quality, moderate-level maps** intended primarily for **dataset generation**.
-This Includes a python script which can generate a moderate quality maps and it is effective for first levels and is it not that much effective for last levels ( last levels are less complex )
+
 ---
+This Includes a python script which can generate a moderate quality maps and it is effective for first levels and is it not that much effective for last levels ( last levels are less complex )
 
 ### **Script: `Dif_Lv2.py`**  
 
