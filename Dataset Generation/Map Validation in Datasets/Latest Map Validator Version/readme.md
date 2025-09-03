@@ -21,5 +21,5 @@ This validator reads `maps.jsonl`, checks maps in **fixed batches of 18 lines (o
 1. Open this folder in your IDE’s **integrated terminal**.
 2. Run the validator:
 
-```bash
-python validator2.py maps.jsonl 
+  ```bash
+  python validator2.py maps.jsonl
