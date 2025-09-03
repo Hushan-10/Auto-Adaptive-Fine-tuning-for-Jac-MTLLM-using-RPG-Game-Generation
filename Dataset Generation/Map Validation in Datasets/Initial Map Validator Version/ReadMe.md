@@ -33,8 +33,8 @@ This mode is meant for quick checks while developing—no file I/O required.
                \"enemies\": [...],
                \"player_pos\": {\"x\": 4, \"y\": 6}}'''
 
-3.Save the file.
-4.Run the script:
+3. Save the file.
+4. Open map validator_py in integrated terminal and run.
 
    ```python
    python map_validator.py
