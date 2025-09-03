@@ -23,3 +23,7 @@ This validator reads `maps.jsonl`, checks maps in **fixed batches of 18 lines (o
 
   ```bash
   python validator2.py maps.jsonl
+  ```
+3.When it finishes:
+- Output file: noerror.jsonl (only clean 18-line batches)
+- Usage: You can use noerror.jsonl directly to fine-tune models or for downstream tasks.
