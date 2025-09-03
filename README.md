@@ -161,7 +161,8 @@ Start the development server:
 [Hugging Face](https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main).
 
 
-<img width="1720" height="835" alt="Screenshot 2025-09-03 044152" src="https://github.com/user-attachments/assets/0013c7ca-662f-4f04-8baa-55492f9a14ee" />
+<img width="1898" height="884" alt="Screenshot 2025-09-03 081238" src="https://github.com/user-attachments/assets/74ca08b0-cf87-4f4a-bfb9-e79cd421aeaa" />
+
 
 
 
