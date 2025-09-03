@@ -101,7 +101,7 @@ Start the development server:
 conda activate myenv
 npm run dev
 ```
-> **Note:** All details are shown in this YouTube video: [Watch the tutorial](https://youtu.be/YOUR_VIDEO_ID)
+> **Note:** All details are shown in this YouTube video: [Watch the tutorial](https://youtu.be/MVJ6U6Yi8Bk)
 
 ### Run the backend
 
