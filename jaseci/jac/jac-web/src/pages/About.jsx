@@ -32,7 +32,7 @@ export default function About(){
       <section className="media-grid">
         <div className="card media">
           {/* YouTube sample; replace with your actual video ID */}
-          <iframe className="yt" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          <iframe className="yt" src="https://www.youtube.com/embed/MVJ6U6Yi8Bk"
             title="JAC Web Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen />
         </div>
