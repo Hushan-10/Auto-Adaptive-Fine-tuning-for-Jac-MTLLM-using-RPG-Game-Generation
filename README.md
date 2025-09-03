@@ -159,7 +159,10 @@ Start the development server:
 
 **All models, datasets, and demo videos are available on Hugging Face.**
 [Hugging Face](https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main).
+
+
 <img width="1720" height="835" alt="Screenshot 2025-09-03 044152" src="https://github.com/user-attachments/assets/0013c7ca-662f-4f04-8baa-55492f9a14ee" />
+
 
 
 # System Overview
@@ -167,5 +170,57 @@ Start the development server:
 
 
 <img width="2360" height="2920" alt="Flowchart (3)" src="https://github.com/user-attachments/assets/7e18d4ad-e5b4-45af-8695-8c36cd5447e5" />
+
+
+## Threshold Settings
+
+Our system uses a **threshold** to decide when to fine-tune and when to publish (merge + host) a model.
+
+### RPG mode (format-validated threshold)
+- The system waits until the dataset reaches the configured size, then starts **fine-tuning**.
+- After each run, it randomly samples **4** items from the training set, runs **inference**, and validates the outputs using the **pattern-validator** file (checks the required RPG output format/schema).
+- If **all 4** samples pass validation, the model is **merged** and **hosted**.  
+  If any sample fails, the model is **not merged**. The system waits for the next data chunk.
+- When a new chunk arrives, the system retrains on the **combined** data (previous + new) and repeats the same validation.
+- In RPG mode, the **threshold** effectively means: *the model consistently produces correctly formatted outputs on randomly selected inputs*.
+
+### Other tasks
+- For non-RPG tasks where format validation isn’t relevant(like summarization), the threshold is a **minimum number of data entries**.
+- This value is user-configurable via **environment variables**. We recommend at least **500** examples for meaningful results.
+- In the YouTube demo, we use **5** to keep the demonstration simple.
+
+
+> **Note:** **Merge** = combine the fine-tuned adapters with the base model. **Host** = serve the merged model via the server.
+<img width="1391" height="273" alt="Screenshot 2025-09-03 062145" src="https://github.com/user-attachments/assets/dfb535f0-14be-4d07-b25e-c45efd3d3d3d" />
+
+## Map Validator Retry System
+
+When the model generates an invalid map, the map validator automatically triggers a *retry loop*:
+
+- Each retry uses the same input prompt but slightly adjusts generation parameters (temperature ↑, top-p ↑).
+- If the new map is valid, the loop stops.
+- If still invalid, it keeps retrying up to the max attempts.
+- *If all retries fail, the validator gives up for that attempt and the system proceeds to generate the next map.*  
+  That next map is produced without the previous attempt passing validation, so it may be either valid or invalid.
+
+✅ Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
+
+![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
+
+## Fallback Function
+
+When a **local model** (our fine-tuned RPG models or automatically fine-tuned models) returns an **invalidly formatted** output, the **pattern validator** triggers a fallback to **GPT-4o mini**.
+
+- On fallback, the API base switches from the local endpoint (e.g., `https://127.0.0.1:8010/v1`) to `None`.
+- The pipeline continues so results aren’t blocked by a single bad output.
+
+### Conceptual flow
+1. Generate with local model.
+2. Validate the response against the required RPG schema/format.
+3. If **invalid** → switch to **GPT-4o mini** and re-generate.
+4. Log the fallback event and continue.
+
+![5c21f3e8-06e6-4e56-97ce-dda46f4f1ba4](https://github.com/user-attachments/assets/1f534423-7143-45b4-9866-34b8e61ef200)
+
 
 
