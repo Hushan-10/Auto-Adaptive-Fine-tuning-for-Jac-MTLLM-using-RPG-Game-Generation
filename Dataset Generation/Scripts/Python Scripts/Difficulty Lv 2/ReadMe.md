@@ -1,4 +1,3 @@
-This Includes a python script which can generate a moderate quality maps and it is effective for first levels and is it not thatmuch effective for last levels 
 
 ## Level-2 Map Generators  
 
