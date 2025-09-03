@@ -1,1 +1,0 @@
-when we hardcode sample output in the code it can detect wheater that the player can or cannot reach an enemy and output yes or no based on that if player can reach all yes otherwise no.
