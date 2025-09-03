@@ -1,16 +1,40 @@
-# Level-1 Map Generators
+## Level-1 Map Generators  
 
-This folder contains the **initial-level scripts** that generate **simple, low-level maps**.  
-They are lightweight and intended primarily for **testing**.
+Lightweight **initial-level scripts** for generating **simple, low-level maps** intended primarily for **testing**.
 
-## How to Run
-1. Open this folder in an **integrated terminal**.
-2. Run the script:
-   ```bash
-   python Dif_Lv1.py
+---
 
-Output:
-1.All generated levels will be printed in the terminal.
-2.Copy and paste these outputs into a .jsonl file.
-3.Use the map viewer tool to visualize the created maps.
+### **Script: `Dif_Lv1.py`**  
 
+- **Purpose:**  
+  - Generate quick test maps.  
+  - Print JSONL-ready lines for datasets and viewers.  
+  - By design, a single run emits **two lines**: Stage-1 metadata and Stage-2 randomized map.
+
+- **How to Use:**  
+  1. Open this folder in **VS Code** (or any IDE) and use the **integrated terminal**.  
+  2. Run one of the following commands:  
+
+     **Windows (PowerShell / CMD)**  
+     ```powershell
+     python .\Dif_Lv1.py
+     ```
+
+     **macOS / Linux**  
+     ```bash
+     python3 ./Dif_Lv1.py
+     ```
+
+  3. **Copy** the printed lines from the terminal into a file named, for example, `sample_maps.jsonl`.  
+
+- **Result:**  
+  - Level data is printed to the terminal in JSON format (one object per line).  
+  - You can immediately load the `.jsonl` file with your **map viewer**.
+
+---
+
+### **Output Format (example)**  
+
+```text
+{"stage":1,"...":"..."}
+{"stage":2,"...":"..."}
