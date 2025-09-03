@@ -13,17 +13,13 @@ Lightweight **initial-level scripts** for generating **simple, low-level maps** 
 
 - **How to Use:**  
   1. Open this folder in **VS Code** (or any IDE) and use the **integrated terminal**.  
-  2. Run one of the following commands:  
-
-     **Windows (PowerShell / CMD)**  
+  2. Run one of the following command in the terminal:  
+  
      ```powershell
      python .\Dif_Lv1.py
      ```
 
-     **macOS / Linux**  
-     ```bash
-     python3 ./Dif_Lv1.py
-     ```
+     
 
   3. **Copy** the printed lines from the terminal into a file named, for example, `sample_maps.jsonl`.  
 
@@ -38,3 +34,4 @@ Lightweight **initial-level scripts** for generating **simple, low-level maps** 
 ```text
 {"stage":1,"...":"..."}
 {"stage":2,"...":"..."}
+
