@@ -23,6 +23,11 @@ It checks structure, types, and formatting, and can also detect if the JSON is s
 - [3] kind=INVALID strict=false
   -reason: Map keys mismatch; got ['walls','level']
 
+## Detects invalid patterns using the Pattern Validator in the Backend terminal.
 <img width="1496" height="314" alt="Screenshot 2025-09-03 023222" src="https://github.com/user-attachments/assets/30e9085f-dd74-4bf3-b0df-bca151899e91" />
+
+## Detects invalid patterns using the Pattern Validator in the Server terminal.
+<img width="1394" height="233" alt="Screenshot 2025-09-03 031546" src="https://github.com/user-attachments/assets/73a55d55-5e4c-4902-afe0-59823aa2c3eb" />
+
 
 
