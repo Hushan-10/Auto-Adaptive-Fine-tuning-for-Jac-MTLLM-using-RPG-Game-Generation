@@ -1,5 +1,5 @@
 
-## Level-2 Map Generators  
+## Difficulty-2 Map Generators  
 
 Lightweight **mdoderare-level scripts** for generating **quality, moderate-level maps** intended primarily for **dataset generation**.
 
