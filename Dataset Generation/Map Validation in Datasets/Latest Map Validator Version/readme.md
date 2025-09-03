@@ -1,9 +1,29 @@
-We primaly use this validator to validate large amount of data ( used for validation in datasets created by python scripts) in here
-we do both validation and creating a dataset which has only correct maps 
-here we give the input to the validator as jsonl file and from that this new validator validate each dataset by 18 line by 18 if there is a one faulty maps is tha18 dataset whole 18 dataset is removed ( 18 line = i set ) so to run first open this folder in integrated terminal and run this in th terminal
+## Dataset Map Validator — **Batch Mode** (`Map_validator_latest.py`)
 
-python validator2.py maps.jsonl
+Validate **large JSONL datasets** and produce a clean file that contains **only correct maps**.  
+This validator reads `maps.jsonl`, checks maps in **fixed batches of 18 lines (one “set”)**, and writes only the **fully valid batches** to `noerror.jsonl`.
 
-so it will automaticaly validate all the lines in the maps.jsonl and writh correct batches only to the noerror.jsonl file and we can use data from jsonl file to finetune models this is the way we created datasets after validation our dataset had 100% corrected data 
+---
 
-![Uploading Screenshot 2025-08-29 202843.png…]()
+### **What it does**
+- Reads `maps.jsonl` where **each line is one map JSON**.
+- Processes the file in **batches of 18 lines**.
+- If **any single map fails** in a batch, the **entire 18-line batch is discarded**.
+- Writes only **error-free batches** to `noerror.jsonl` (preserving original order).
+
+> [!IMPORTANT]
+> Your dataset length should be a multiple of **18** to avoid a trailing partial batch.
+
+---
+
+### **How to run**
+
+1. Open this folder in your IDE’s **integrated terminal**.
+2. Run the validator:
+
+```bash
+python validator2.py maps.jsonl 
+
+
+
+
