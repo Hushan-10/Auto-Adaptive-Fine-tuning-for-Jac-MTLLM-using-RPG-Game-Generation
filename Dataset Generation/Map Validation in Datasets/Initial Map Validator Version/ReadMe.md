@@ -30,4 +30,6 @@ This mode is meant for quick checks while developing—no file I/O required.
 
    ```python
    python map_validator.py
+
+5. It will display the result in the terminal
       
