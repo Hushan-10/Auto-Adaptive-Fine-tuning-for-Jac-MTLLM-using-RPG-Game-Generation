@@ -101,7 +101,7 @@ Start the development server:
 conda activate myenv
 npm run dev
 ```
-> **Note:** All details are shown in this YouTube video: [Watch the tutorial](https://youtu.be/MVJ6U6Yi8Bk)
+> **Note:** All details are shown in this YouTube video: [Watch the Video](https://youtu.be/MVJ6U6Yi8Bk)
 
 ### Run the backend
 
@@ -160,5 +160,12 @@ Start the development server:
 **All models, datasets, and demo videos are available on Hugging Face.**
 [Hugging Face](https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main).
 <img width="1720" height="835" alt="Screenshot 2025-09-03 044152" src="https://github.com/user-attachments/assets/0013c7ca-662f-4f04-8baa-55492f9a14ee" />
+
+
+# System Overview
+
+
+
+<img width="2360" height="2920" alt="Flowchart (3)" src="https://github.com/user-attachments/assets/7e18d4ad-e5b4-45af-8695-8c36cd5447e5" />
 
 
