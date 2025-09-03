@@ -23,7 +23,3 @@ This validator reads `maps.jsonl`, checks maps in **fixed batches of 18 lines (o
 
 ```bash
 python validator2.py maps.jsonl 
-
-
-
-
