@@ -1,4 +1,4 @@
-## Level-1 Map Generators  
+## Difficulty-1 Map Generators  
 
 Lightweight **initial-level scripts** for generating **simple, low-level maps** intended primarily for **testing**.
 
@@ -34,5 +34,6 @@ Lightweight **initial-level scripts** for generating **simple, low-level maps** 
 ```text
 {"stage":1,"...":"..."}
 {"stage":2,"...":"..."}
+
 
 
