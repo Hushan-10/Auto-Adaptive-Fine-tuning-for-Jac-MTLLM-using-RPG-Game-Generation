@@ -16,7 +16,7 @@ Lightweight **initial-level scripts** for generating **simple, low-level maps** 
   2. Run one of the following command in the terminal:  
   
      ```powershell
-     python .\Dif_Lv1.py
+     python Dif_Lv1.py
      ```
 
      
@@ -34,4 +34,5 @@ Lightweight **initial-level scripts** for generating **simple, low-level maps** 
 ```text
 {"stage":1,"...":"..."}
 {"stage":2,"...":"..."}
+
 
