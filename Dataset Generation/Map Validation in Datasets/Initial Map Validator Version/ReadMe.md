@@ -32,3 +32,10 @@ This mode is meant for quick checks while developing—no file I/O required.
                \"small_obstacles\": [...],
                \"enemies\": [...],
                \"player_pos\": {\"x\": 4, \"y\": 6}}'''
+
+3.Save the file.
+4.Run the script:
+
+   ```python
+   python map_validator.py
+      
