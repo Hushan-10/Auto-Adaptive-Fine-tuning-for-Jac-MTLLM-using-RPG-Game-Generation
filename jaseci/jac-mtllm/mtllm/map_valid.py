@@ -1,11 +1,10 @@
 # map_valid.py
 
-# Validates maps by reachability only, plus a minimum enemy-count check:
-#   - Walls & small_obstacles are blocking.
-#   - Player and enemy cells are ALWAYS treated as free (overlaps allowed).
-#   - Each enemy must be reachable from the player via 4-directional moves.
-#   - If len(enemies) < level["num_enemies"], the map is INVALID.
-
+# Map is valid if:
+#   - Player can reach every enemy (4-way movement).
+#   - Walls and small obstacles block movement.
+#   - Player/enemy cells are always free, even if they overlap.
+#   - Must have at least the required number of enemies.
 
 import sys
 import json
@@ -54,14 +53,14 @@ def validate_map_json(data: Dict) -> bool:
         # Enemies list (also must be on the board)
         enemies = [(int(e["x"]), int(e["y"])) for e in data.get("enemies", [])]
 
-        # --- NEW RULE: minimum enemy count must be met ---
+        # minimum enemy count must be met
         if len(enemies) < required_enemies:
             return False
 
         if any(not _in_bounds(ex, ey, width, height) for ex, ey in enemies):
             return False
 
-        # OVERLAPS ALLOWED: treat player/enemy cells as free by removing them from blocked
+        # treat player/enemy cells as free by removing them from blocked
         blocked.difference_update({start, *enemies})
 
         # BFS from player through free cells (4-neighborhood)
@@ -91,7 +90,7 @@ def _iter_jsonl(path: str):
                 continue
             try:
                 outer = json.loads(line)
-                # Each line is a record; the "output" field holds the actual map JSON string
+                # Each line is a record, the "output" field holds the actual map JSON string
                 map_obj = json.loads(outer["output"])
                 yield lineno, map_obj, None
             except Exception as e:
