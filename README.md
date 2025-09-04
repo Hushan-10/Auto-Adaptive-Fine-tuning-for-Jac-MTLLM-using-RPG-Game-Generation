@@ -194,6 +194,7 @@ Our system uses a **threshold** to decide when to fine-tune and when to publish 
 ### Other tasks
 - For non-RPG tasks where format validation(like pattern validation) isn’t relevant(like summarization), the threshold is a **minimum number of data entries**.
 - This value is user-configurable via **environment variables**. We recommend at least **500** examples for meaningful results.
+- after merging it continuously check the local model outputs with response format,if its invalid its quickly fallback to gpt 40 mini and local model goes to further training(continuously)
 - In the YouTube demo, we use **5** to keep the demonstration simple.
 
 
