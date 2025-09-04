@@ -13,7 +13,7 @@ SYSTEM_PROMPT = (
     "Do not include explanations, code, or extra text—only the result.\n"
 )
 
--
+
 def derive_level_config(current_level: int, difficulty: int) -> Dict[str, Any]:
     name = current_level + 1
     return {
@@ -1107,4 +1107,5 @@ if __name__ == "__main__":
     stage17_level_cfg = json.loads(rec17["output"])
     rec18 = generate_record(build_stage18_input_from_stage17(level8_map=stage12_out, level9_map=stage14_out, level10_map=stage16_out, stage17_level_cfg=stage17_level_cfg))
     print(json.dumps(rec18, ensure_ascii=False))
+
 
