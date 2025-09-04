@@ -33,7 +33,7 @@ This include python script which generate higher quality and complex map generat
 
 ---
 
-
+In here V1 versions enemies are always more closer to the out wals so we have fixeed that with V2 version
 
 
 
