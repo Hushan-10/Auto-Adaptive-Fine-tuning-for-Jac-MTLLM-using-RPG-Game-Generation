@@ -227,7 +227,7 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned RP
     - Example: Playing the **RPG game** fine-tunes an **RPG-specific** model from the RPG game’s `.jsonl`.  
     - Running a **summarizer** task fine-tunes a **separate summarizer** model from the summarizer’s `.jsonl`.  
     *(This behavior is shown in the YouTube demo.)*
-  - **Auto fine-tuning trigger:** When the `.jsonl` file reaches the **configured threshold** (size or count), the local Tiny model automatically **starts fine-tuning**.
+  - **Auto fine-tuning trigger:** When the `.jsonl` file reaches the **configured threshold** (count), the local Tiny model automatically **starts fine-tuning**.
   - **Merge & host:** After fine-tuning completes, the adapter is **merged** with the base model and the merged model is **hosted** locally.
   - **API base switch:** Once hosted, the client’s **API base** automatically switches to the hosted model’s local endpoint (e.g., `https://127.0.0.1:<port>/v1`) so responses come from the local model.
   - **App-specific formats:** Each application defines a **unique response format** that the model must follow.
@@ -235,6 +235,11 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned RP
     If a response **fails the required response format**, the request **falls back to GPT-4o mini**, and the local model **automatically resumes training** on new data.
   - **Cumulative retraining:** When the next data chunk arrives, the system retrains on the **combined dataset** (e.g., *chunk 1 + chunk 2*), then **merges and hosts** again.
   - **Continuous loop:** This **train → validate → merge → host → monitor → fallback (if needed)** loop continues as new data arrives.
+
+
+
+<img width="375" height="247" alt="Screenshot 2025-09-04 173931" src="https://github.com/user-attachments/assets/a36a33cb-af16-45a1-874c-9bc509ecb1d9" />
+
   
 ## Map Validator Retry System(for RPG game)
 
