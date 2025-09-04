@@ -170,8 +170,6 @@ Start the development server:
 <img width="1898" height="884" alt="Screenshot 2025-09-03 081238" src="https://github.com/user-attachments/assets/74ca08b0-cf87-4f4a-bfb9-e79cd421aeaa" />
 
 
-
-
 # System Overview
 
 
