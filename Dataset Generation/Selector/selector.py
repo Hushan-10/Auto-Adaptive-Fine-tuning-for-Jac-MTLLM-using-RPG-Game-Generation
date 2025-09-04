@@ -1,20 +1,3 @@
-# slice_good_data.py
-# Usage:
-#   python slice_good_data.py [in_jsonl] [out_jsonl]
-# Example:
-#   python slice_good_data.py good_data.jsonl sliced_output.jsonl
-#
-# What it does (1-indexed line numbers):
-#  - Builds 18 sequences: 1,19,37,... ; 2,20,38,... ; ... ; 18,36,54,...
-#  - Per sequence k, collects exactly these TOTAL counts (sum = 60,000):
-#      k= 1:1500,  2:1500,  3:1800,  4:1800,  5:2100,  6:2100,
-#      k= 7:2700,  8:2700,  9:3300, 10:3300, 11:3750, 12:3750,
-#      k=13:4350, 14:4350, 15:4950, 16:4950, 17:5550, 18:5550
-#  - Writes records to a single output JSONL in this order:
-#      round 1:  (half of each sequence, in order 1..18)
-#      round 2:  the remaining half (same order 1..18)
-#  - If a sequence has fewer available lines than requested, it writes what exists and warns.
-
 import sys
 from pathlib import Path
 from typing import List
@@ -96,3 +79,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
