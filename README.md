@@ -191,12 +191,11 @@ Our system uses a **threshold** to decide when to fine-tune and when to publish 
 - When a new chunk arrives, the system retrains on the **combined** data (previous + new) and repeats the same validation.
 - In RPG mode, the **threshold** effectively means: *the model consistently produces correctly formatted outputs on randomly selected inputs*.
 
-### Other tasks
-- For non-RPG tasks where format validation(like pattern validation) isn’t relevant(like summarization), the threshold is a **minimum number of data entries**.
-- This value is user-configurable via **environment variables**. We recommend at least **500** examples for meaningful results.
-- after merging it continuously check the local model outputs with response format,if its invalid its quickly fallback to gpt 40 mini and local model goes to further training(continuously)
+- ### Other tasks
+- For non-RPG tasks where format validation (e.g., pattern checks) isn’t applicable (such as summarization), the threshold is a **minimum number of training examples**.
+- This threshold is user-configurable via **environment variables**. We recommend at least **500** examples for reliable results.
 - In the YouTube demo, we use **5** to keep the demonstration simple.
-
+- After merging and hosting, the system continuously monitors local model responses for the required **response format**. If a response fails the required **response format**, the request **falls back to GPT-4o   mini**, and the local model **automatically resumes training** on new data.
 
 > **Note:** **Merge** = combine the fine-tuned adapters with the base model. **Host** = serve the merged model via the server.
 <img width="1391" height="273" alt="Screenshot 2025-09-03 062145" src="https://github.com/user-attachments/assets/dfb535f0-14be-4d07-b25e-c45efd3d3d3d" />
