@@ -218,7 +218,7 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned RP
 ![5c21f3e8-06e6-4e56-97ce-dda46f4f1ba4](https://github.com/user-attachments/assets/1f534423-7143-45b4-9866-34b8e61ef200)
 
 
-# Model Versoning System and Fallback Function for other tasks
+# Model Versoning System 
   ## Data Collection & Auto Fine-Tuning Loop
   
   - **Per-task dataset file:** When you run any task (any **JAC** file), the system automatically creates a **unique `.jsonl`** file for that task.
