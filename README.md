@@ -201,19 +201,6 @@ Our system uses a **threshold** to decide when to fine-tune and when to publish 
 > **Note:** **Merge** = combine the fine-tuned adapters with the base model. **Host** = serve the merged model via the server.
 <img width="1391" height="273" alt="Screenshot 2025-09-03 062145" src="https://github.com/user-attachments/assets/dfb535f0-14be-4d07-b25e-c45efd3d3d3d" />
 
-## Map Validator Retry System(for RPG game)
-
-When the model generates an invalid map, the map validator automatically triggers a *retry loop*:
-
-- Each retry uses the same input prompt but slightly adjusts generation parameters (temperature ↑, top-p ↑).
-- If the new map is valid, the loop stops.
-- If still invalid, it keeps retrying up to the max attempts.
-- *If all retries fail, the validator gives up for that attempt and the system proceeds to generate the next map.*  
-  That next map is produced without the previous attempt passing validation, so it may be either valid or invalid.
-
-Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
-
-![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
 
 ## Fallback Function(for RPG game with pattern validator)
 
@@ -231,7 +218,7 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned RP
 ![5c21f3e8-06e6-4e56-97ce-dda46f4f1ba4](https://github.com/user-attachments/assets/1f534423-7143-45b4-9866-34b8e61ef200)
 
 
-# Versoning System and Fallback Function for other tasks
+# Model Versoning System and Fallback Function for other tasks
   ## Data Collection & Auto Fine-Tuning Loop
   
   - **Per-task dataset file:** When you run any task (any **JAC** file), the system automatically creates a **unique `.jsonl`** file for that task.
