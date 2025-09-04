@@ -1,4 +1,4 @@
-# new_newwalls_lv11_final.py
+
 import json
 import re
 import random
@@ -13,7 +13,7 @@ SYSTEM_PROMPT = (
     "Do not include explanations, code, or extra text—only the result.\n"
 )
 
-# ---------- Stage 1: infer next level config ----------
+-
 def derive_level_config(current_level: int, difficulty: int) -> Dict[str, Any]:
     name = current_level + 1
     return {
@@ -26,7 +26,7 @@ def derive_level_config(current_level: int, difficulty: int) -> Dict[str, Any]:
         "num_enemies": 2 + (difficulty - 1),
     }
 
-# ---------- Helpers ----------
+# Helpers
 def _in_bounds(x: int, y: int, w: int, h: int) -> bool:
     return 0 <= x < w and 0 <= y < h
 
@@ -113,7 +113,7 @@ def _connectivity_target_ratio(n: int) -> float:
     if n <= 24: return 0.64
     return 0.66
 
-# ---------- RNG ----------
+#  RNG 
 def _rng_from_input(input_text: str) -> random.Random:
     m = re.search(r"^\s*seed\s*=\s*(-?\d+)\s*$", input_text, re.IGNORECASE | re.MULTILINE)
     if m:
@@ -127,7 +127,7 @@ def _rng_from_input(input_text: str) -> random.Random:
     seed_val ^= (id(object()) << 16)
     return random.Random(seed_val & ((1 << 64) - 1))
 
-# ---------- Placement ----------
+#  Placement 
 def _random_free_cell(rng: random.Random, width: int, height: int, forbidden: Set[Tuple[int, int]]) -> Tuple[int, int]:
     interior = [(x, y) for y in range(1, height - 1) for x in range(1, width - 1) if (x, y) not in forbidden]
     if not interior:
@@ -186,10 +186,10 @@ def _place_small_obstacles(rng: random.Random, level: Dict[str,Any], walls_set: 
     Also ensure the player can still reach a healthy fraction of the map after adding obstacles.
     """
     w, h = level["width"], level["height"]
-    count = level["num_wall"]  # follows your dataset pattern
+    count = level["num_wall"]  
     cluster_prob = min(0.75, 0.3 + 0.15 * (level["difficulty"] - 1))
 
-    # Quality target based on size; clamp to what is possible with current walls.
+    
     non_wall_free = w * h - len(walls_set)
     base_target = _connectivity_target_ratio(min(w, h))
     reach0 = _reachable_from(player_cell, w, h, walls_set)
@@ -208,11 +208,11 @@ def _place_small_obstacles(rng: random.Random, level: Dict[str,Any], walls_set: 
         blocked = set(walls_set) | {(p["x"], p["y"]) for p in pts} | {player_cell}
         reachable = _reachable_from(player_cell, w, h, blocked)
 
-        # Require good coverage relative to non-wall space
+        
         if len(reachable) >= min_reach_cells:
             return pts
 
-    # Fallback: keep original behavior, but still try to be reasonable
+    
     forbidden = set(walls_set); forbidden.add(player_cell)
     return _uniform_points(rng, count, w, h, forbidden)
 
@@ -229,10 +229,10 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
     w, h = level["width"], level["height"]
     n = level["num_enemies"]
 
-    # Static blocks (enemies aren't considered blocking for reachability)
+    # Static blocks 
     static_blocked = set(walls_set) | {(o["x"], o["y"]) for o in small_obstacles}
 
-    # Cells reachable by the player when considering walls + small obstacles only.
+    
     reach = _reachable_from(player_cell, w, h, static_blocked)
     if not reach:
         return []
@@ -243,12 +243,10 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
     if len(candidates) == 0:
         return []
 
-    # Target separation scaled by board size and enemy count.
-    # Works well from 16x16 up to 24x24+ and adapts if the reachable area is smaller.
-    # Example: 24x24 with 9 enemies -> target_sep ≈ 5 (nice dispersion).
+    
     import math
     base_sep = int(min(w, h) / (math.sqrt(max(1, n)) + 1)) - 1
-    target_sep = max(3, min(base_sep, 7))  # cap a bit so it doesn't get impossible
+    target_sep = max(3, min(base_sep, 7))  
     min_player_sep = max(3, target_sep - 1)
 
     def cheb(a: Tuple[int,int], b: Tuple[int,int]) -> int:
@@ -258,7 +256,7 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
         """Greedy farthest-point sampling over 'candidates' with min_sep and player clearance."""
         chosen: List[Tuple[int,int]] = []
 
-        # Pick the first point among the farthest-from-player set (top 20%).
+        
         dists = [(c, cheb(c, player_cell)) for c in candidates if cheb(c, player_cell) >= min_player_sep]
         if not dists:
             return []
@@ -267,13 +265,12 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
         first = rng.choice([c for (c, _) in dists[:topk]])
         chosen.append(first)
 
-        # Iteratively pick the candidate that maximizes min distance to existing chosen
-        # while respecting min_sep (to enemies) and min_player_sep (to player).
+        
         while len(chosen) < n:
             best_c = None
             best_score = -1
 
-            # Heuristic: sample a subset for speed if the set is huge
+            # sample a subset for speed if the set is huge
             pool = candidates
             if len(candidates) > 4000:
                 pool = rng.sample(candidates, 4000)
@@ -284,8 +281,7 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
                 # Enforce pairwise separation from already chosen
                 if any(cheb(c, e) < min_sep for e in chosen):
                     continue
-                # Score = minimum distance to chosen (maximize spread),
-                # tie-breaker by distance to player (also spread away from spawn)
+                
                 if chosen:
                     score = min(cheb(c, e) for e in chosen) * 10 + cheb(c, player_cell)
                 else:
@@ -295,7 +291,7 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
                     best_c = c
 
             if best_c is None:
-                # Can't place more under this separation
+                
                 break
             chosen.append(best_c)
 
@@ -329,12 +325,11 @@ def _place_enemies(rng: random.Random, level: Dict[str,Any], walls_set: Set[Tupl
                 result.append(c)
                 placed.add(c)
 
-    # Final safety: ensure no overlap with walls/obstacles/player (candidates already ensure this)
-    # and ensure reachability (already guaranteed by choosing from 'reach').
+    # Final safety: ensure no overlap with walls/obstacles/player 
     return [{"x": x, "y": y} for (x, y) in result]
 
 
-# ---------- Walls (length-constrained) ----------
+# Walls (length-constrained) 
 def _random_segment_within_range(rng: random.Random, w: int, h: int,
                                  used: Set[Tuple[Tuple[int,int], Tuple[int,int]]],
                                  min_len: int, max_len: int) -> Optional[Dict[str, Dict[str, int]]]:
@@ -438,7 +433,7 @@ def _deterministic_internal_walls(level: Dict[str, Any]) -> List[Dict[str, Dict[
 
     return ok_walls[:count]
 
-# ---------- Map builder ----------
+#  Map builder 
 def build_map(level: Dict[str, Any], rng: random.Random) -> Dict[str, Any]:
     width, height = level["width"], level["height"]
     min_len, max_len = _segment_len_bounds(width, height)
@@ -446,8 +441,7 @@ def build_map(level: Dict[str, Any], rng: random.Random) -> Dict[str, Any]:
     # ONLY internal walls, all length-constrained
     base_walls = _deterministic_internal_walls(level)
 
-    # (Optional) small re-shuffle while preserving length bounds
-    # Keep 2, regenerate the rest with constraints
+    
     keep_n = min(2, len(base_walls))
     keep = rng.sample(base_walls, keep_n) if base_walls else []
     used: Set[Tuple[Tuple[int,int], Tuple[int,int]]] = set()
@@ -487,7 +481,7 @@ def build_map(level: Dict[str, Any], rng: random.Random) -> Dict[str, Any]:
 
     walls = _validate_wall_list(walls)
 
-    # ---- Connectivity improvement for walls (gentle, bounded) ----
+    #  Connectivity improvement for walls (gentle, bounded) 
     def _evaluate_connectivity(wlist: List[Dict[str, Dict[str, int]]]) -> Tuple[float, Set[Tuple[int,int]]]:
         wc = _collect_wall_cells(wlist)
         non_wall = width * height - len(wc)
@@ -520,7 +514,7 @@ def build_map(level: Dict[str, Any], rng: random.Random) -> Dict[str, Any]:
         wall_cells = best_wall_cells
     else:
         wall_cells = _collect_wall_cells(walls)
-    # ---- end connectivity improvement ----
+    #  end connectivity improvement 
 
     # Player must not overlap walls and should spawn in the largest reachable area (walls only)
     largest_cells = _largest_component_cells(width, height, wall_cells)
@@ -561,7 +555,7 @@ def build_map(level: Dict[str, Any], rng: random.Random) -> Dict[str, Any]:
         "player_pos": player_pos,
     }
 
-# ---------- Parsing ----------
+#  Parsing 
 CL_RE = re.compile(r"current_level\s*=\s*(\d+)", re.IGNORECASE)
 CD_RE = re.compile(r"current_difficulty\s*=\s*(\d+)", re.IGNORECASE)
 LEVEL_OBJ_RE = re.compile(
@@ -611,11 +605,11 @@ def parse_mode(input_block: str) -> Optional[str]:
     m = MODE_RE.search(input_block)
     return m.group(1) if m else None
 
-# ---------- Sanitizer ----------
+# Sanitizer 
 def _sanitize_input_for_record(input_text: str) -> str:
     return re.sub(r"(?mi)^\s*seed\s*=\s*-?\d+\s*\n?", "", input_text).rstrip()
 
-# ---------- Record builders ----------
+# Record builders 
 def build_record(system_text: str, input_text: str, output_obj: Dict[str, Any]) -> Dict[str, Any]:
     output_json_str = json.dumps(output_obj, separators=(", ", ": "), sort_keys=False)
     return {"system": system_text, "input": input_text, "output": output_json_str}
@@ -666,7 +660,7 @@ def generate_next_map_record(input_text: str) -> Dict[str, Any]:
 
     return build_record(SYSTEM_PROMPT, _sanitize_input_for_record(input_text), map_obj)
 
-# ---------- Formatting helpers ----------
+# Formatting helpers 
 def _fmt_level_for_input(level: Dict[str, Any]) -> str:
     return (
         f"Level(name={level['name']}, difficulty={level['difficulty']}, time={level['time']}, "
@@ -693,7 +687,7 @@ def _fmt_map_tiles(map_obj: Dict[str, Any]) -> str:
         f"enemies=[{enemies_txt}], player_pos={player_txt})"
     )
 
-# ---------- Stage input builders (unchanged, through Stage 18) ----------
+#  Stage input builders (unchanged, through Stage 18) 
 def build_stage3_input_from_map(next_difficulty: int,
                                 prev_level: Dict[str, Any],
                                 map_obj: Dict[str, Any]) -> str:
@@ -1113,3 +1107,4 @@ if __name__ == "__main__":
     stage17_level_cfg = json.loads(rec17["output"])
     rec18 = generate_record(build_stage18_input_from_stage17(level8_map=stage12_out, level9_map=stage14_out, level10_map=stage16_out, stage17_level_cfg=stage17_level_cfg))
     print(json.dumps(rec18, ensure_ascii=False))
+
