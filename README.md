@@ -196,11 +196,12 @@ Our system uses a **threshold** to decide when to fine-tune and when to publish 
 - This threshold is user-configurable via **environment variables**. We recommend at least **500** examples for reliable results.
 - In the YouTube demo, we use **5** to keep the demonstration simple.
 - After merging and hosting, the system continuously monitors local model responses for the required **response format**. If a response fails the required **response format**, the request **falls back to GPT-4o   mini**, and the local model **automatically resumes training** on new data.
+  
 
 > **Note:** **Merge** = combine the fine-tuned adapters with the base model. **Host** = serve the merged model via the server.
 <img width="1391" height="273" alt="Screenshot 2025-09-03 062145" src="https://github.com/user-attachments/assets/dfb535f0-14be-4d07-b25e-c45efd3d3d3d" />
 
-## Map Validator Retry System
+## Map Validator Retry System(for RPG game)
 
 When the model generates an invalid map, the map validator automatically triggers a *retry loop*:
 
@@ -214,9 +215,9 @@ Gives the model multiple chances to produce a *valid, playable* map while keepin
 
 ![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
 
-## Fallback Function
+## Fallback Function(for RPG game with pattern validator)
 
-When a **local model** (our fine-tuned RPG models or automatically fine-tuned models) returns an **invalidly formatted** output, the **pattern validator** triggers a fallback to **GPT-4o mini**.
+When a **local model** (our fine-tuned RPG models or automatically fine-tuned RPG models) returns an **invalidly formatted** output, the **pattern validator** triggers a fallback to **GPT-4o mini**.
 
 - On fallback, the API base switches from the local endpoint (e.g., `https://127.0.0.1:8010/v1`) to `None`.
 - The pipeline continues so results aren’t blocked by a single bad output.
@@ -228,5 +229,39 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned mo
 4. Log the fallback event and continue.
 
 ![5c21f3e8-06e6-4e56-97ce-dda46f4f1ba4](https://github.com/user-attachments/assets/1f534423-7143-45b4-9866-34b8e61ef200)
+
+
+# Versoning System and Fallback Function for other tasks
+  ## Data Collection & Auto Fine-Tuning Loop
+  
+  - **Per-task dataset file:** When you run any task (any **JAC** file), the system automatically creates a **unique `.jsonl`** file for that task.
+  - **Continuous logging:** As users interact with the application, all interaction data is appended to that `.jsonl` file *(as shown in the YouTube demo)*.
+  - **Per-task fine-tuned models:** The system fine-tunes **separate models for each task/application** using that task’s own `.jsonl` file.  
+    - Example: Playing the **RPG game** fine-tunes an **RPG-specific** model from the RPG game’s `.jsonl`.  
+    - Running a **summarizer** task fine-tunes a **separate summarizer** model from the summarizer’s `.jsonl`.  
+    *(This behavior is shown in the YouTube demo.)*
+  - **Auto fine-tuning trigger:** When the `.jsonl` file reaches the **configured threshold** (size or count), the local Tiny model automatically **starts fine-tuning**.
+  - **Merge & host:** After fine-tuning completes, the adapter is **merged** with the base model and the merged model is **hosted** locally.
+  - **API base switch:** Once hosted, the client’s **API base** automatically switches to the hosted model’s local endpoint (e.g., `https://127.0.0.1:<port>/v1`) so responses come from the local model.
+  - **App-specific formats:** Each application defines a **unique response format** that the model must follow.
+  - **Runtime validation & fallback:** After merging and hosting, the system continuously monitors local model outputs for the required **response format**.  
+    If a response **fails the required response format**, the request **falls back to GPT-4o mini**, and the local model **automatically resumes training** on new data.
+  - **Cumulative retraining:** When the next data chunk arrives, the system retrains on the **combined dataset** (e.g., *chunk 1 + chunk 2*), then **merges and hosts** again.
+  - **Continuous loop:** This **train → validate → merge → host → monitor → fallback (if needed)** loop continues as new data arrives.
+  
+## Map Validator Retry System(for RPG game)
+
+When the model generates an invalid map, the map validator automatically triggers a *retry loop*:
+
+- Each retry uses the same input prompt but slightly adjusts generation parameters (temperature ↑, top-p ↑).
+- If the new map is valid, the loop stops.
+- If still invalid, it keeps retrying up to the max attempts.
+- *If all retries fail, the validator gives up for that attempt and the system proceeds to generate the next map.*  
+  That next map is produced without the previous attempt passing validation, so it may be either valid or invalid.
+
+Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
+
+![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
+
 
 
