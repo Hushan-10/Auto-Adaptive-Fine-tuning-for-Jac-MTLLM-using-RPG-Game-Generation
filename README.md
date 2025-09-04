@@ -181,7 +181,7 @@ Start the development server:
 
 ## Threshold Settings
 
-Our system uses a **threshold** to decide when to fine-tune and when to publish (merge + host) a model.
+Our system uses a **threshold** to decide when to publish (merge + host) a model.
 
 ### RPG mode (format-validated threshold)
 - The system waits until the dataset reaches the configured size, then starts **fine-tuning**.
@@ -214,6 +214,8 @@ When a **local model** (our fine-tuned RPG models or automatically fine-tuned RP
 2. Validate the response against the required RPG schema/format.
 3. If **invalid** → switch to **GPT-4o mini** and re-generate.
 4. Log the fallback event and continue.
+
+> **Note:** More details on the pattern validator function are in the README inside the **Pattern Validator** folder.
 
 ![5c21f3e8-06e6-4e56-97ce-dda46f4f1ba4](https://github.com/user-attachments/assets/1f534423-7143-45b4-9866-34b8e61ef200)
 
@@ -252,6 +254,9 @@ When the model generates an invalid map, the map validator automatically trigger
   That next map is produced without the previous attempt passing validation, so it may be either valid or invalid.
 
 Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
+
+> **Note:** More details on the map validator function are in the README inside the **Map Validator** folder.
+
 
 ![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
 
