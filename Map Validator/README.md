@@ -34,7 +34,7 @@ A map is considered **VALID** if all of the following hold:
 python map_valid.py dataset.jsonl
 ```
 
-# Example Input (JSONL)
+# 📂 Example Input (JSONL)
 ```bash
 {"output": "{\"level\":{\"name\":1,\"difficulty\":2,\"time\":300,\"width\":10,\"height\":10,\"num_wall\":5,\"num_enemies\":2},\"walls\":[{\"start_pos\":{\"x\":0,\"y\":0},\"end_pos\":{\"x\":0,\"y\":9}}],\"small_obstacles\":[{\"x\":3,\"y\":3}],\"enemies\":[{\"x\":5,\"y\":5},{\"x\":7,\"y\":8}],\"player_pos\":{\"x\":1,\"y\":1}}"}
 ```
