@@ -3,7 +3,7 @@ import json
 import os
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# === EDIT THIS to your merged model folder ===
+# Edit this to your merged model folder
 MODEL_DIR = r"D:\Jac\TinyLlama-1.1B-Chat-v1.0"
 
 # List of 4 system-user prompt pairs
