@@ -7,6 +7,10 @@ Auto-adaptive fine-tuning MTLLM for RPG level generation — learns from large m
 
 > **Note:** All details are shown in this YouTube video: [You Tube Video](https://youtu.be/MVJ6U6Yi8Bk)
 
+**All models, datasets, and demo videos are available on Hugging Face.**
+[Hugging Face](https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main).
+
+
 # Getting Started
 
 ## 1. Clone the repository
