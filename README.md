@@ -179,7 +179,7 @@ Start the development server:
 <img width="2360" height="2920" alt="Flowchart (3)" src="https://github.com/user-attachments/assets/7e18d4ad-e5b4-45af-8695-8c36cd5447e5" />
 
 
-## Threshold Settings
+## Threshold Settings (Intelligent Model Switching and Evaluation Framework)
 
 Our system uses a **threshold** to decide when to publish (merge + host) a model.
 
