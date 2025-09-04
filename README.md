@@ -206,7 +206,7 @@ When the model generates an invalid map, the map validator automatically trigger
 - *If all retries fail, the validator gives up for that attempt and the system proceeds to generate the next map.*  
   That next map is produced without the previous attempt passing validation, so it may be either valid or invalid.
 
-✅ Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
+Gives the model multiple chances to produce a *valid, playable* map while keeping the pipeline moving
 
 ![2e5f40c2-4f80-4721-acd4-2ac60e389976](https://github.com/user-attachments/assets/b186a494-693b-4fa1-86fa-e17c11d287d3)
 
