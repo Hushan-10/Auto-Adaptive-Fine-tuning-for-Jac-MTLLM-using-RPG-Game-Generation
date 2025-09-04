@@ -45,7 +45,7 @@ _DEFAULT_SWITCH_WHITELIST = r"D:\Jaseci\jac\examples\rpg_game\jac_impl\jac_impl_
 MODEL_PATH = r"D:\Jac\TinyLlama-1.1B-Chat-v1.0"
 ``` 
 This is the path to the fine-tuned RPG model. After you download a model, update this path to your local directory.
-You can choose any model from this list (Model 7 is recommended):
+You can choose any model from this list (Model 7 and 5 is recommended):
 **Fine Tuned Models for RPG:** [Hugging Face model page](< https://huggingface.co/Hirudika2002/JARVIS-Models/tree/main/LoRA-Trained>)
 
 ### Merge Server file
