@@ -28,7 +28,15 @@ Before using this data for fine-tuning a model, we perform some preprocessing an
 4. **Sorting and Selection**  
    - Similar map types are grouped together.  
    - Data is rearranged so that examples of the same type are brought closer, improving training consistency.
+  
+### How to Run
 
+   Run this is the Terminal
+   ```
+     python selector.py good_data.jsonl sliced_output.jsonl
+   ```
+   Them it will save the new arranged data to sliced_output.jsonl
+   
 ### Why This Matters
 
 - **Low levels**: Easier, less diverse → fewer samples needed.  
