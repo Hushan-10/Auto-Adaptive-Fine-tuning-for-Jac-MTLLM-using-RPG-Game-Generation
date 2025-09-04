@@ -192,7 +192,7 @@ Our system uses a **threshold** to decide when to fine-tune and when to publish 
 - In RPG mode, the **threshold** effectively means: *the model consistently produces correctly formatted outputs on randomly selected inputs*.
 
 ### Other tasks
-- For non-RPG tasks where format validation isn’t relevant(like summarization), the threshold is a **minimum number of data entries**.
+- For non-RPG tasks where format validation(like pattern validation) isn’t relevant(like summarization), the threshold is a **minimum number of data entries**.
 - This value is user-configurable via **environment variables**. We recommend at least **500** examples for meaningful results.
 - In the YouTube demo, we use **5** to keep the demonstration simple.
 
