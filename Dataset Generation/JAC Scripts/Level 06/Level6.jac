@@ -161,7 +161,7 @@ walker Stage1V1 {
     return (0, 0);
   }
 
-  # strictly interior, never touching border; length in seg_len_bounds(min(w, h))
+  # strictly interior walls
   def random_interior_segment(rng: any, w: int, h: int) -> dict {
     let (Lmin, Lmax) = self.seg_len_bounds(min(w, h));
     let vertical = (rng.random() < 0.5);
@@ -195,7 +195,7 @@ walker Stage1V1 {
     # EXACT system prompt
     system = "This is a task you must complete by returning only the output.\nDo not include explanations, code, or extra text—only the result.\n";
 
-    # ---------- Stage 1 (Level 3 metadata) ----------
+    # ---------- Stage 1 (Level 3) ----------
     stage1_input =
       "create_next_level\n\n"
       + "self = LevelManager(current_level=" + str(self.current_level)
@@ -220,7 +220,7 @@ walker Stage1V1 {
       "output": json.dumps(level, ensure_ascii=False)
     };
 
-    # ---------- Stage 2 (Level 3 map; 5 random inner walls) ----------
+    # ---------- Stage 2 (Level 3 map) ----------
     let lvl_txt = self.fmt_level_text(level);
     stage2_input =
       "create_next_map\n\n"
@@ -303,7 +303,7 @@ walker Stage1V1 {
       "output": json.dumps(map_out, ensure_ascii=False)
     };
 
-    # ---------- Stage 1B (Level 4 metadata) ----------
+    # ---------- Stage 1B (Level 4) ----------
     let prev_lvl_txt = lvl_txt;
     let prev_map_txt = self.fmt_map_text(map_out);
 
@@ -415,7 +415,7 @@ walker Stage1V1 {
       "output": json.dumps(map_out2, ensure_ascii=False)
     };
 
-    # ---------- Stage 1C (Level 5 metadata) ----------
+    # ---------- Stage 1C (Level 5) ----------
     let prev_lvl_txt2 = lvl2_txt;
     let prev_map_txt2 = self.fmt_map_text(map_out2);
 
@@ -529,7 +529,7 @@ walker Stage1V1 {
       "output": json.dumps(map_out3, ensure_ascii=False)
     };
 
-    # ---------- Stage 1D (Level 6 metadata) ----------
+    # ---------- Stage 1D (Level 6 ) ----------
     let prev_lvl_txt3 = lvl3_txt;
     let prev_map_txt3 = self.fmt_map_text(map_out3);
 
@@ -757,7 +757,7 @@ walker Stage1V1 {
       "output": json.dumps(map_out5, ensure_ascii=False)
     };
 
-    # -------- persist exactly ten lines per run --------
+    # 
     with open("levels.jsonl", "a", encoding="utf-8") as f {
       f.write(json.dumps(rec1, ensure_ascii=False) + "\n");   # L3 meta
       f.write(json.dumps(rec2, ensure_ascii=False) + "\n");   # L3 map
@@ -774,5 +774,6 @@ walker Stage1V1 {
 }
 
 with entry:__main__ {
-  root spawn Stage1V1();  # appends 10 JSONL records (L3..L7) to levels.jsonl
+  root spawn Stage1V1();  # appends 10 JSONL records to levels.jsonl
 }
+
